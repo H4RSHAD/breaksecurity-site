@@ -1,770 +1,237 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BreakSecurity - Ciberseguridad Profesional</title>
+    <title>BreakSecurity - Soluciones de Ciberseguridad</title>
+    <link rel="stylesheet" href="styles.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-        }
-
-        /* Header */
-        header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            padding: 1rem 0;
-            transition: all 0.3s ease;
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #10b981;
-        }
-
-        .nav-menu {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-
-        .nav-menu a {
-            text-decoration: none;
-            color: #333;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        .nav-menu a:hover {
-            color: #10b981;
-        }
-
-        .menu-toggle {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-        }
-
-        .menu-toggle span {
-            width: 25px;
-            height: 3px;
-            background: #333;
-            margin: 3px 0;
-            transition: 0.3s;
-        }
-
-        /* Hero Section with Parallax */
-        .hero {
-            height: 100vh;
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: white;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)" /></svg>') repeat;
-            animation: float 20s ease-in-out infinite;
-        }
-
-        @keyframes float {
-
-            0%,
-            100% {
-                transform: translateY(0px) rotate(0deg);
-            }
-
-            50% {
-                transform: translateY(-20px) rotate(1deg);
-            }
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 1;
-            max-width: 800px;
-            padding: 0 2rem;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            animation: slideInUp 1s ease-out;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            animation: slideInUp 1s ease-out 0.3s both;
-        }
-
-        .cta-button {
-            display: inline-block;
-            padding: 15px 30px;
-            background: white;
-            color: #10b981;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            animation: slideInUp 1s ease-out 0.6s both;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        @keyframes slideInUp {
-            from {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Sections */
-        section {
-            padding: 6rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: #10b981;
-        }
-
-        /* Services Section */
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .service-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-        }
-
-        .service-card:hover {
-            transform: translateY(-10px);
-            border-color: #10b981;
-            box-shadow: 0 20px 40px rgba(16, 185, 129, 0.1);
-        }
-
-        .service-card i {
-            font-size: 3rem;
-            color: #10b981;
-            margin-bottom: 1rem;
-        }
-
-        .service-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: #333;
-        }
-
-        /* About Section */
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-            margin-top: 3rem;
-        }
-
-        .about-content {
-            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
-            padding: 2rem;
-            border-radius: 15px;
-            border-left: 5px solid #10b981;
-        }
-
-        .about-content h3 {
-            color: #10b981;
-            margin-bottom: 1rem;
-            font-size: 1.5rem;
-        }
-
-        /* News Section */
-        .news-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .news-card {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .news-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-        }
-
-        .news-card-header {
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-            color: white;
-            padding: 1rem;
-            font-size: 0.9rem;
-        }
-
-        .news-card-content {
-            padding: 1.5rem;
-        }
-
-        .news-card h4 {
-            margin-bottom: 1rem;
-            color: #333;
-        }
-
-        /* Trabajos Section */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .project-card {
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-            color: white;
-            padding: 2rem;
-            border-radius: 15px;
-            text-align: center;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .project-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .project-card:hover::before {
-            left: 100%;
-        }
-
-        .project-card:hover {
-            transform: scale(1.05);
-        }
-
-        .project-card i {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        /* Contact Section */
-        .contact-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            margin-top: 3rem;
-        }
-
-        .contact-info {
-            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
-            padding: 2rem;
-            border-radius: 15px;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .contact-item i {
-            font-size: 1.5rem;
-            color: #10b981;
-            margin-right: 1rem;
-            width: 30px;
-        }
-
-        .contact-form {
-            background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: #333;
-            font-weight: 500;
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #e5e7eb;
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: border-color 0.3s ease;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #10b981;
-        }
-
-        .submit-btn {
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-            color: white;
-            padding: 12px 30px;
-            border: none;
-            border-radius: 8px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.3);
-        }
-
-        /* Footer */
-        footer {
-            background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
-            color: white;
-            text-align: center;
-            padding: 3rem 2rem;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .social-links {
-            margin: 2rem 0;
-        }
-
-        .social-links a {
-            color: white;
-            font-size: 1.5rem;
-            margin: 0 1rem;
-            transition: color 0.3s ease;
-        }
-
-        .social-links a:hover {
-            color: #10b981;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .menu-toggle {
-                display: flex;
-            }
-
-            .nav-menu {
-                position: fixed;
-                top: 80px;
-                right: -100%;
-                width: 100%;
-                height: calc(100vh - 80px);
-                background: white;
-                flex-direction: column;
-                justify-content: flex-start;
-                align-items: center;
-                padding-top: 2rem;
-                transition: right 0.3s ease;
-            }
-
-            .nav-menu.active {
-                right: 0;
-            }
-
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .about-grid,
-            .contact-grid {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-
-            section {
-                padding: 4rem 1rem;
-            }
-        }
-
-        /* Parallax Effect */
-        .parallax {
-            position: relative;
-            background-attachment: fixed;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-        }
-
-        .parallax-section {
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.9) 0%, rgba(5, 150, 105, 0.9) 100%);
-            color: white;
-            text-align: center;
-            padding: 6rem 2rem;
-            position: relative;
-        }
-
-        .parallax-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="20" cy="20" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="30" r="1.5" fill="rgba(255,255,255,0.1)"/><circle cx="70" cy="70" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="30" cy="80" r="1.5" fill="rgba(255,255,255,0.1)"/></svg>') repeat;
-            animation: float 15s ease-in-out infinite reverse;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 3rem auto 0;
-        }
-
-        .stat-item {
-            text-align: center;
-            position: relative;
-            z-index: 1;
-        }
-
-        .stat-number {
-            font-size: 3rem;
-            font-weight: bold;
-            display: block;
-        }
-
-        .stat-label {
-            font-size: 1.1rem;
-            opacity: 0.9;
-        }
-
-        /* Smooth scrolling */
-        html {
-            scroll-behavior: smooth;
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
-
-<body> <!-- Header -->
-    <header>
-        <nav>
-            <div class="logo">🛡️ BreakSecurity</div>
-            <ul class="nav-menu">
-                <li><a href="#servicios">Servicios</a></li>
-                <li><a href="#nosotros">Nosotros</a></li>
-                <li><a href="#trabajos">Trabajos</a></li>
-                <li><a href="#noticias">Noticias</a></li>
-                <li><a href="#contacto">Contacto</a></li>
-            </ul>
-            <div class="menu-toggle"> <span></span> <span></span> <span></span> </div>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>BreakSecurity</span>
+                </div>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="#inicio" class="nav-link">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#servicios" class="nav-link">Servicios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#sobre-nosotros" class="nav-link">Sobre Nosotros</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#contacto" class="nav-link">Contacto</a>
+                    </li>
+                </ul>
+                <div class="nav-actions">
+                    <button class="theme-toggle" id="theme-toggle" aria-label="Cambiar tema">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <div class="nav-toggle">
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                    </div>
+                </div>
+            </div>
         </nav>
-    </header> <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Protegemos tu Futuro Digital</h1>
-            <p>Soluciones avanzadas de ciberseguridad para empresas que valoran su información y reputación</p> <a
-                href="#contacto" class="cta-button">Consulta Gratuita</a>
-        </div>
-    </section> <!-- Services Section -->
-    <section id="servicios">
-        <h2 class="section-title">Nuestros Servicios</h2>
-        <div class="services-grid">
-            <div class="service-card"> <i class="fas fa-shield-alt"></i>
-                <h3>Auditoría de Seguridad</h3>
-                <p>Evaluación completa de vulnerabilidades en tus sistemas e infraestructura tecnológica.</p>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    Protege tu <span class="highlight">infraestructura digital</span> con nuestros servicios de ciberseguridad
+                </h1>
+                <p class="hero-description">
+                    En BreakSecurity ofrecemos soluciones integrales de ciberseguridad para proteger tu empresa de amenazas cibernéticas. Nuestro equipo de expertos te ayudará a mantener tus datos seguros.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#servicios" class="btn btn-primary">Nuestros Servicios</a>
+                    <a href="#contacto" class="btn btn-secondary">Contactar</a>
+                </div>
             </div>
-            <div class="service-card"> <i class="fas fa-user-secret"></i>
-                <h3>Pentesting</h3>
-                <p>Pruebas de penetración éticas para identificar puntos débiles antes que los atacantes.</p>
-            </div>
-            <div class="service-card"> <i class="fas fa-eye"></i>
-                <h3>Monitoreo 24/7</h3>
-                <p>Vigilancia continua de amenazas y respuesta inmediata ante incidentes de seguridad.</p>
-            </div>
-            <div class="service-card"> <i class="fas fa-graduation-cap"></i>
-                <h3>Capacitación</h3>
-                <p>Entrenamientos especializados para tu equipo en mejores prácticas de ciberseguridad.</p>
-            </div>
-            <div class="service-card"> <i class="fas fa-cogs"></i>
-                <h3>Consultoría</h3>
-                <p>Asesoría estratégica para implementar marcos de seguridad robustos y escalables.</p>
-            </div>
-            <div class="service-card"> <i class="fas fa-ambulance"></i>
-                <h3>Respuesta a Incidentes</h3>
-                <p>Atención especializada y recuperación rápida ante brechas de seguridad.</p>
+            <div class="hero-image">
+                <div class="cyber-animation">
+                    <i class="fas fa-shield-alt shield-icon"></i>
+                    <div class="security-lines"></div>
+                </div>
             </div>
         </div>
-    </section> <!-- Parallax Stats Section -->
-    <div class="parallax-section">
-        <h2>Protegiendo Empresas desde 2020</h2>
-        <div class="stats-grid">
-            <div class="stat-item"> <span class="stat-number">500+</span> <span class="stat-label">Empresas
-                    Protegidas</span> </div>
-            <div class="stat-item"> <span class="stat-number">99.9%</span> <span class="stat-label">Tiempo de
-                    Actividad</span> </div>
-            <div class="stat-item"> <span class="stat-number">24/7</span> <span class="stat-label">Monitoreo
-                    Continuo</span> </div>
-            <div class="stat-item"> <span class="stat-number">0</span> <span class="stat-label">Brechas No
-                    Detectadas</span> </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="servicios" class="services">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Nuestros Servicios</h2>
+                <p class="section-description">Soluciones especializadas para proteger tu empresa</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3 class="service-title">Auditoría de Seguridad</h3>
+                    <p class="service-description">Evaluación completa de vulnerabilidades en tu infraestructura IT</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h3 class="service-title">Penetration Testing</h3>
+                    <p class="service-description">Pruebas de penetración para identificar puntos débiles en tus sistemas</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <h3 class="service-title">Capacitación en Seguridad</h3>
+                    <p class="service-description">Entrenamiento para tu equipo en mejores prácticas de ciberseguridad</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <h3 class="service-title">Monitoreo 24/7</h3>
+                    <p class="service-description">Supervisión continua de amenazas y respuesta a incidentes</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h3 class="service-title">Implementación de Soluciones</h3>
+                    <p class="service-description">Despliegue de herramientas y políticas de seguridad personalizadas</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-file-shield"></i>
+                    </div>
+                    <h3 class="service-title">Cumplimiento Normativo</h3>
+                    <p class="service-description">Asesoría para cumplir con regulaciones de protección de datos</p>
+                </div>
+            </div>
         </div>
-    </div> <!-- About Section -->
-    <section id="nosotros">
-        <h2 class="section-title">Nosotros</h2>
-        <div class="about-grid">
+    </section>
+
+    <!-- About Section -->
+    <section id="sobre-nosotros" class="about">
+        <div class="container">
             <div class="about-content">
-                <h3>🎯 Nuestra Misión</h3>
-                <p>Proporcionar soluciones de ciberseguridad innovadoras y confiables que protejan los activos digitales
-                    de nuestros clientes, permitiéndoles operar con confianza en el mundo digital.</p>
-                <p>Nos comprometemos a estar a la vanguardia de las amenazas cibernéticas, ofreciendo servicios
-                    proactivos y reactivos que aseguren la continuidad del negocio.</p>
-            </div>
-            <div class="about-content">
-                <h3>🚀 Nuestra Visión</h3>
-                <p>Ser la empresa líder en ciberseguridad en Bolivia y la región, reconocida por nuestra excelencia
-                    técnica, innovación constante y compromiso inquebrantable con la protección digital.</p>
-                <p>Aspiramos a crear un ecosistema digital más seguro, donde las empresas puedan aprovechar al máximo la
-                    tecnología sin temor a las amenazas cibernéticas.</p>
-            </div>
-        </div>
-    </section> <!-- Trabajos Section -->
-    <section id="trabajos">
-        <h2 class="section-title">Nuestros Trabajos</h2>
-        <div class="projects-grid">
-            <div class="project-card"> <i class="fas fa-university"></i>
-                <h3>Sector Financiero</h3>
-                <p>Implementación de sistemas de seguridad para bancos y cooperativas, protegiendo transacciones y datos
-                    sensibles.</p>
-            </div>
-            <div class="project-card"> <i class="fas fa-heartbeat"></i>
-                <h3>Sector Salud</h3>
-                <p>Protección de historiales médicos y cumplimiento de normativas de privacidad en clínicas y
-                    hospitales.</p>
-            </div>
-            <div class="project-card"> <i class="fas fa-industry"></i>
-                <h3>Sector Industrial</h3>
-                <p>Seguridad en sistemas SCADA y protección de infraestructura crítica en plantas industriales.</p>
-            </div>
-            <div class="project-card"> <i class="fas fa-shopping-cart"></i>
-                <h3>E-commerce</h3>
-                <p>Protección de plataformas de comercio electrónico y seguridad en métodos de pago online.</p>
-            </div>
-            <div class="project-card"> <i class="fas fa-graduation-cap"></i>
-                <h3>Sector Educativo</h3>
-                <p>Implementación de políticas de seguridad y protección de datos académicos en universidades.</p>
-            </div>
-            <div class="project-card"> <i class="fas fa-building"></i>
-                <h3>Sector Gubernamental</h3>
-                <p>Asesoría en ciberseguridad para instituciones públicas y protección de información ciudadana.</p>
-            </div>
-        </div>
-    </section> <!-- News Section -->
-    <section id="noticias">
-        <h2 class="section-title">Últimas Noticias</h2>
-        <div class="news-grid">
-            <div class="news-card">
-                <div class="news-card-header"> <i class="fas fa-clock"></i> 15 Agosto 2025 </div>
-                <div class="news-card-content">
-                    <h4>Nuevas Amenazas de Ransomware en 2025</h4>
-                    <p>Descubre las últimas variantes de ransomware y cómo BreakSecurity está ayudando a empresas
-                        bolivianas a protegerse contra estos ataques sofisticados.</p>
+                <div class="about-text">
+                    <h2 class="section-title">Sobre BreakSecurity</h2>
+                    <p class="about-description">
+                        Somos un equipo de expertos en ciberseguridad con más de 10 años de experiencia protegiendo empresas de todos los tamaños. Nuestra misión es mantener tu información segura y tu negocio protegido contra las amenazas cibernéticas más avanzadas.
+                    </p>
+                    <div class="stats">
+                        <div class="stat">
+                            <h3 class="stat-number">500+</h3>
+                            <p class="stat-label">Empresas Protegidas</p>
+                        </div>
+                        <div class="stat">
+                            <h3 class="stat-number">99.9%</h3>
+                            <p class="stat-label">Tiempo de Actividad</p>
+                        </div>
+                        <div class="stat">
+                            <h3 class="stat-number">24/7</h3>
+                            <p class="stat-label">Soporte Disponible</p>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="news-card">
-                <div class="news-card-header"> <i class="fas fa-clock"></i> 10 Agosto 2025 </div>
-                <div class="news-card-content">
-                    <h4>Certificación ISO 27001 Obtenida</h4>
-                    <p>BreakSecurity obtiene la certificación ISO 27001, reforzando nuestro compromiso con los más altos
-                        estándares de seguridad de la información.</p>
-                </div>
-            </div>
-            <div class="news-card">
-                <div class="news-card-header"> <i class="fas fa-clock"></i> 5 Agosto 2025 </div>
-                <div class="news-card-content">
-                    <h4>Webinar: IA y Ciberseguridad</h4>
-                    <p>Participa en nuestro próximo webinar sobre el impacto de la Inteligencia Artificial en la
-                        ciberseguridad moderna y las oportunidades que presenta.</p>
+                <div class="about-image">
+                    <div class="cyber-grid">
+                        <div class="grid-item"></div>
+                        <div class="grid-item"></div>
+                        <div class="grid-item"></div>
+                        <div class="grid-item"></div>
+                        <div class="grid-item"></div>
+                        <div class="grid-item"></div>
+                        <div class="grid-item"></div>
+                        <div class="grid-item"></div>
+                        <div class="grid-item"></div>
+                    </div>
                 </div>
             </div>
         </div>
-    </section> <!-- Contact Section -->
-    <section id="contacto">
-        <h2 class="section-title">Contacto</h2>
-        <div class="contact-grid">
-            <div class="contact-info">
-                <h3>Información de Contacto</h3>
-                <div class="contact-item"> <i class="fas fa-map-marker-alt"></i>
-                    <div> <strong>Dirección:</strong><br> Av. San Martín #123, Equipetrol<br> Santa Cruz de la Sierra,
-                        Bolivia </div>
-                </div>
-                <div class="contact-item"> <i class="fas fa-phone"></i>
-                    <div> <strong>Teléfono:</strong><br> +591 777777777</div>
-                </div>
-                <div class="contact-item"> <i class="fas fa-envelope"></i>
-                    <div> <strong>Email:</strong><br> info@breaksecurity.com.bo </div>
-                </div>
-                <div class="contact-item"> <i class="fas fa-clock"></i>
-                    <div> <strong>Horario:</strong><br> Lun - Vie: 8:00 - 18:00<br> Sáb: 9:00 - 13:00 </div>
-                </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contacto" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Contacto</h2>
+                <p class="section-description">¿Listo para proteger tu empresa? Contáctanos hoy mismo</p>
             </div>
-            <div class="contact-form">
-                <h3>Solicitar Consulta</h3>
-                <form>
-                    <div class="form-group"> <label for="nombre">Nombre Completo</label> <input type="text" id="nombre"
-                            name="nombre" required> </div>
-                    <div class="form-group"> <label for="empresa">Empresa</label> <input type="text" id="empresa"
-                            name="empresa" required> </div>
-                    <div class="form-group"> <label for="email">Email</label> <input type="email" id="email"
-                            name="email" required> </div>
-                    <div class="form-group"> <label for="telefono">Teléfono</label> <input type="tel" id="telefono"
-                            name="telefono"> </div>
-                    <div class="form-group"> <label for="mensaje">Mensaje</label> <textarea id="mensaje" name="mensaje"
-                            rows="5" placeholder="Cuéntanos sobre tus necesidades de ciberseguridad..."></textarea>
-                    </div> <button type="submit" class="submit-btn">Enviar Consulta</button>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email</h4>
+                            <p>info@breaksecurity.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h4>Teléfono</h4>
+                            <p>+591 7xxxxxxx</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>Ubicación</h4>
+                            <p>Santa Cruz de la Sierra, Bolivia</p>
+                        </div>
+                    </div>
+                </div>
+                <form class="contact-form">
+                    <div class="form-group">
+                        <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="email" name="email" placeholder="Tu email" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="empresa" name="empresa" placeholder="Empresa">
+                    </div>
+                    <div class="form-group">
+                        <textarea id="mensaje" name="mensaje" placeholder="Tu mensaje" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Enviar Mensaje</button>
                 </form>
             </div>
         </div>
-    </section> <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <div class="logo">🛡️ BreakSecurity</div>
-            <div class="social-links"> <a href="#"><i class="fab fa-linkedin"></i></a> <a href="#"><i
-                        class="fab fa-twitter"></i></a> <a href="#"><i class="fab fa-facebook"></i></a> <a href="#"><i
-                        class="fab fa-instagram"></i></a> </div>
-            <p>&copy; 2025 BreakSecurity. Todos los derechos reservados.</p>
-            <p>Protegiendo el futuro digital de Bolivia</p>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>BreakSecurity</span>
+                </div>
+                <p class="footer-text">&copy; 2024 BreakSecurity. Todos los derechos reservados.</p>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
         </div>
     </footer>
-    <script> 
-    document.querySelector('.menu-toggle').addEventListener('click', function() {
-        document.querySelector('.nav-menu').classList.toggle('active');
-    });
 
-    // Smooth scrolling for navigation links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-                // Close mobile menu after clicking
-                document.querySelector('.nav-menu').classList.remove('active');
-            }
-        });
-    });
-
-    // Header background on scroll
-    window.addEventListener('scroll', function() {
-        const header = document.querySelector('header');
-        if (window.scrollY > 100) {
-            header.style.background = 'rgba(255, 255, 255, 0.98)';
-        } else {
-            header.style.background = 'rgba(255, 255, 255, 0.95)';
-        }
-    });
-
-    // Form submission
-    document.querySelector('form').addEventListener('submit', function(e) {
-        e.preventDefault();
-        alert('¡Gracias por contactarnos! Te responderemos pronto.');
-        this.reset();
-    });
-
-    // Animate elements on scroll
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver(function(entries) {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-                entry.target.style.transition = 'all 0.6s ease-out';
-                observer.unobserve(entry.target); // Evita animar varias veces
-            }
-        });
-    }, observerOptions);
-
-    // Seleccionar los elementos a animar (puedes ajustar la clase según tu HTML)
-    document.querySelectorAll('.animate-on-scroll').forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(40px)';
-        observer.observe(el);
-    });
-    </script> 
+    <script src="script.js"></script>
+</body>
+</html>
